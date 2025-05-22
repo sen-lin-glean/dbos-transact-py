@@ -41,7 +41,6 @@ distribution = true
 
 [tool.pdm.version]
 source = "scm"
-version_format = "version:format_version"
 
 [tool.black]
 line-length = 88
