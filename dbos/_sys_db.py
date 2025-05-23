@@ -1919,7 +1919,7 @@ class SystemDatabase:
             raise
 
 
-def reset_system_database(postgres_db_url: sa.URL, sysdb_name: str) -> None:
+def reset_system_database(postgres_db_url: URL, sysdb_name: str) -> None:
     try:
         # Connect to postgres default database
         engine = sa.create_engine(
