@@ -77,7 +77,7 @@ def postgres_db_engine() -> sa.Engine:
     assert cfg["database_url"] is not None
     return sa.create_engine(
         make_url(cfg["database_url"]).set(
-            drivername="postgresql+psycopg",
+            drivername="postgresql+psycopg2",
             database="postgres",
         ),
         connect_args={

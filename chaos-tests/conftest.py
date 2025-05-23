@@ -33,7 +33,7 @@ def cleanup_test_databases(config: DBOSConfig, postgres: None) -> None:
     assert config["database_url"] is not None
     engine = sa.create_engine(
         make_url(config["database_url"]).set(
-            drivername="postgresql+psycopg",
+            drivername="postgresql+psycopg2",
             database="postgres",
         ),
         connect_args={

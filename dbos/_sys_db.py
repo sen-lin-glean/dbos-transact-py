@@ -1923,7 +1923,7 @@ def reset_system_database(postgres_db_url: URL, sysdb_name: str) -> None:
     try:
         # Connect to postgres default database
         engine = sa.create_engine(
-            postgres_db_url.set(drivername="postgresql+psycopg"),
+            postgres_db_url.set(drivername="postgresql+psycopg2"),
             connect_args={"connect_timeout": 10},
         )
 

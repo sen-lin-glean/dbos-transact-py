@@ -18,7 +18,7 @@ from .schema import dbos_hello
 app = FastAPI()
 dbos_config: DBOSConfig = {
     "name": "${project_name}",
-    "database_url": os.environ.get("DBOS_DATABASE_URL", "postgresql+psycopg://postgres:dbos@localhost:5432/${default_db_name}?connect_timeout=5")
+    "database_url": os.environ.get("DBOS_DATABASE_URL", "postgresql+psycopg2://postgres:dbos@localhost:5432/${default_db_name}?connect_timeout=5")
 }
 DBOS(fastapi=app, config=dbos_config)
 

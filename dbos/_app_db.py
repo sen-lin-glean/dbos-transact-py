@@ -39,7 +39,7 @@ class ApplicationDatabase:
         engine_kwargs: Dict[str, Any],
         debug_mode: bool = False,
     ):
-        app_db_url = make_url(database_url).set(drivername="postgresql+psycopg")
+        app_db_url = make_url(database_url).set(drivername="postgresql+psycopg2")
 
         if engine_kwargs is None:
             engine_kwargs = {}
