@@ -24,7 +24,7 @@ from typing import (
 
 import psycopg
 import sqlalchemy as sa
-from sqlalchemy.engine import make_url, Connection
+from sqlalchemy.engine import make_url, Connection, URL
 import sqlalchemy.dialects.postgresql as pg
 from alembic import command
 from alembic.config import Config
@@ -1450,7 +1450,7 @@ class SystemDatabase:
         while self._run_background_processes:
             try:
                 # since we're using the psycopg connection directly, we need a url without the "+pycopg" suffix
-                url = sa.URL.create(
+                url = URL.create(
                     "postgresql", **self.engine.url.translate_connect_args()
                 )
                 # Listen to notifications
