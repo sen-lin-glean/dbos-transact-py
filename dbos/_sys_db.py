@@ -24,6 +24,7 @@ from typing import (
 
 import psycopg
 import sqlalchemy as sa
+from sqlalchemy.engine import make_url
 import sqlalchemy.dialects.postgresql as pg
 from alembic import command
 from alembic.config import Config
@@ -331,7 +332,7 @@ class SystemDatabase:
         debug_mode: bool = False,
     ):
         # Set driver
-        system_db_url = sa.make_url(database_url).set(drivername="postgresql+psycopg")
+        system_db_url = make_url(database_url).set(drivername="postgresql+psycopg")
         # Resolve system database name
         sysdb_name = sys_db_name
         if not sysdb_name:

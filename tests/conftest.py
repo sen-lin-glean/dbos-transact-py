@@ -7,6 +7,7 @@ from urllib.parse import quote
 
 import pytest
 import sqlalchemy as sa
+from sqlalchemy.engine import make_url
 from fastapi import FastAPI
 from flask import Flask
 
@@ -75,7 +76,7 @@ def postgres_db_engine() -> sa.Engine:
     cfg = default_config()
     assert cfg["database_url"] is not None
     return sa.create_engine(
-        sa.make_url(cfg["database_url"]).set(
+        make_url(cfg["database_url"]).set(
             drivername="postgresql+psycopg",
             database="postgres",
         ),
@@ -88,7 +89,7 @@ def postgres_db_engine() -> sa.Engine:
 @pytest.fixture()
 def cleanup_test_databases(config: DBOSConfig, postgres_db_engine: sa.Engine) -> None:
     assert config["database_url"] is not None
-    app_db_name = sa.make_url(config["database_url"]).database
+    app_db_name = make_url(config["database_url"]).database
     sys_db_name = f"{app_db_name}_dbos_sys"
 
     with postgres_db_engine.connect() as connection:

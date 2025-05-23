@@ -5,6 +5,7 @@ import sqlalchemy.dialects.postgresql as pg
 from sqlalchemy import inspect, text
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.engine import make_url
 
 from . import _serialization
 from ._error import DBOSUnexpectedStepError, DBOSWorkflowConflictIDError
@@ -38,7 +39,7 @@ class ApplicationDatabase:
         engine_kwargs: Dict[str, Any],
         debug_mode: bool = False,
     ):
-        app_db_url = sa.make_url(database_url).set(drivername="postgresql+psycopg")
+        app_db_url = make_url(database_url).set(drivername="postgresql+psycopg")
 
         if engine_kwargs is None:
             engine_kwargs = {}

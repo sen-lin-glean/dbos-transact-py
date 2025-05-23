@@ -70,7 +70,7 @@ if TYPE_CHECKING:
     from ._kafka import _KafkaConsumerWorkflow
     from flask import Flask
 
-from sqlalchemy import make_url
+from sqlalchemy.engine import make_url
 from sqlalchemy.orm import Session
 
 if sys.version_info < (3, 10):

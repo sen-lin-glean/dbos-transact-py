@@ -9,6 +9,7 @@ from typing import Any, Optional
 
 import jsonpickle  # type: ignore
 import sqlalchemy as sa
+from sqlalchemy.engine import make_url
 import typer
 from rich import print
 from rich.prompt import IntPrompt
@@ -253,7 +254,7 @@ def migrate(
 ) -> None:
     config = load_config(run_process_config=False, silent=True)
     connection_string = _get_db_url(db_url)
-    app_db_name = sa.make_url(connection_string).database
+    app_db_name = make_url(connection_string).database
     assert app_db_name is not None, "Database name is required in URL"
     if sys_db_name is None:
         sys_db_name = app_db_name + SystemSchema.sysdb_suffix
@@ -348,7 +349,7 @@ def reset(
     try:
         # Make a SA url out of the user-provided URL and verify a database name is present
         database_url = _get_db_url(db_url)
-        pg_db_url = sa.make_url(database_url)
+        pg_db_url = make_url(database_url)
         assert (
             pg_db_url.database is not None
         ), f"Database name is required in URL: {pg_db_url.render_as_string(hide_password=True)}"

@@ -7,6 +7,7 @@ from urllib.parse import quote
 
 import pytest
 import sqlalchemy as sa
+from sqlalchemy.engine import make_url
 
 from dbos import DBOS, DBOSConfig
 from dbos._docker_pg_helper import start_docker_pg, stop_docker_pg
@@ -31,7 +32,7 @@ def postgres(config: DBOSConfig) -> Generator[None, Any, None]:
 def cleanup_test_databases(config: DBOSConfig, postgres: None) -> None:
     assert config["database_url"] is not None
     engine = sa.create_engine(
-        sa.make_url(config["database_url"]).set(
+        make_url(config["database_url"]).set(
             drivername="postgresql+psycopg",
             database="postgres",
         ),
@@ -39,7 +40,7 @@ def cleanup_test_databases(config: DBOSConfig, postgres: None) -> None:
             "connect_timeout": 30,
         },
     )
-    app_db_name = sa.make_url(config["database_url"]).database
+    app_db_name = make_url(config["database_url"]).database
     sys_db_name = f"{app_db_name}_dbos_sys"
 
     with engine.connect() as connection:

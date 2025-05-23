@@ -4,7 +4,7 @@ import unittest
 from typing import Any, Dict, List, TypedDict, cast
 from unittest.mock import mock_open, patch
 
-from sqlalchemy import make_url
+from sqlalchemy.engine import make_url
 
 from dbos._dbos_config import _substitute_env_vars, load_config
 
