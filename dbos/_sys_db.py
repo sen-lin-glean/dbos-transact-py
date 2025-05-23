@@ -332,7 +332,7 @@ class SystemDatabase:
         debug_mode: bool = False,
     ):
         # Set driver
-        system_db_url = make_url(database_url).set(drivername="postgresql+psycopg")
+        system_db_url = make_url(database_url).set(drivername="postgresql+psycopg2")
         # Resolve system database name
         sysdb_name = sys_db_name
         if not sysdb_name:
