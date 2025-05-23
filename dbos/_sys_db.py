@@ -24,7 +24,7 @@ from typing import (
 
 import psycopg
 import sqlalchemy as sa
-from sqlalchemy.engine import make_url
+from sqlalchemy.engine import make_url, Connection
 import sqlalchemy.dialects.postgresql as pg
 from alembic import command
 from alembic.config import Config
@@ -421,7 +421,7 @@ class SystemDatabase:
     def _insert_workflow_status(
         self,
         status: WorkflowStatusInternal,
-        conn: sa.Connection,
+        conn: Connection,
         *,
         max_recovery_attempts: Optional[int],
     ) -> tuple[WorkflowStatuses, Optional[int]]:
@@ -790,7 +790,7 @@ class SystemDatabase:
             time.sleep(1)
 
     def _update_workflow_inputs(
-        self, workflow_uuid: str, inputs: str, conn: sa.Connection
+        self, workflow_uuid: str, inputs: str, conn: Connection
     ) -> None:
         if self._debug_mode:
             raise Exception("called update_workflow_inputs in debug mode")
@@ -1117,7 +1117,7 @@ class SystemDatabase:
             ]
 
     def _record_operation_result_txn(
-        self, result: OperationResultInternal, conn: sa.Connection
+        self, result: OperationResultInternal, conn: Connection
     ) -> None:
         if self._debug_mode:
             raise Exception("called record_operation_result in debug mode")
@@ -1199,7 +1199,7 @@ class SystemDatabase:
         workflow_id: str,
         function_id: int,
         function_name: str,
-        conn: sa.Connection,
+        conn: Connection,
     ) -> Optional[RecordedResult]:
         # First query: Retrieve the workflow status
         workflow_status_sql = sa.select(
