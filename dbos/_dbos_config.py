@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional, TypedDict, cast
 import yaml
 from jsonschema import ValidationError, validate
 from rich import print
-from sqlalchemy import make_url
+from sqlalchemy.engine import make_url
 
 from ._error import DBOSInitializationError
 from ._logger import dbos_logger
