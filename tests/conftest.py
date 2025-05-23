@@ -83,6 +83,7 @@ def postgres_db_engine() -> sa.Engine:
         connect_args={
             "connect_timeout": 30,
         },
+        future=True,
     )
 
 

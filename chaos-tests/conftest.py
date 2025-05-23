@@ -39,6 +39,7 @@ def cleanup_test_databases(config: DBOSConfig, postgres: None) -> None:
         connect_args={
             "connect_timeout": 30,
         },
+        future=True
     )
     app_db_name = make_url(config["database_url"]).database
     sys_db_name = f"{app_db_name}_dbos_sys"

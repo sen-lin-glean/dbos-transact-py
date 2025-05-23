@@ -46,6 +46,7 @@ class ApplicationDatabase:
 
         self.engine = sa.create_engine(
             app_db_url,
+            future=True,
             **engine_kwargs,
         )
         self._engine_kwargs = engine_kwargs
@@ -62,6 +63,7 @@ class ApplicationDatabase:
         app_db_url = self.engine.url
         postgres_db_engine = sa.create_engine(
             app_db_url.set(database="postgres"),
+            future=True,
             **self._engine_kwargs,
         )
         with postgres_db_engine.connect() as conn:

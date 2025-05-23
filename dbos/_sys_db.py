@@ -342,6 +342,7 @@ class SystemDatabase:
 
         self.engine = sa.create_engine(
             system_db_url,
+            future=True,
             **engine_kwargs,
         )
         self._engine_kwargs = engine_kwargs
@@ -363,7 +364,7 @@ class SystemDatabase:
         sysdb_name = system_db_url.database
         # If the system database does not already exist, create it
         engine = sa.create_engine(
-            system_db_url.set(database="postgres"), **self._engine_kwargs
+            system_db_url.set(database="postgres"), future=True, **self._engine_kwargs
         )
         with engine.connect() as conn:
             conn.execution_options(isolation_level="AUTOCOMMIT")
@@ -1925,6 +1926,7 @@ def reset_system_database(postgres_db_url: URL, sysdb_name: str) -> None:
         engine = sa.create_engine(
             postgres_db_url.set(drivername="postgresql+psycopg2"),
             connect_args={"connect_timeout": 10},
+            future=True,
         )
 
         with engine.connect() as conn:
