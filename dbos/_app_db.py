@@ -70,7 +70,7 @@ class ApplicationDatabase:
             conn.execution_options(isolation_level="AUTOCOMMIT")
             if not conn.execute(
                 sa.text("SELECT 1 FROM pg_database WHERE datname=:db_name"),
-                db_name = app_db_url.database,
+                parameters={"db_name": app_db_url.database},
             ).scalar():
                 conn.execute(sa.text(f"CREATE DATABASE {app_db_url.database}"))
         postgres_db_engine.dispose()

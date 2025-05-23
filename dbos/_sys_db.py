@@ -370,7 +370,7 @@ class SystemDatabase:
             conn.execution_options(isolation_level="AUTOCOMMIT")
             if not conn.execute(
                 sa.text("SELECT 1 FROM pg_database WHERE datname=:db_name"),
-                db_name = sysdb_name,
+                parameters={"db_name": sysdb_name},
             ).scalar():
                 dbos_logger.info(f"Creating system database {sysdb_name}")
                 conn.execute(sa.text(f"CREATE DATABASE {sysdb_name}"))
@@ -1943,7 +1943,7 @@ def reset_system_database(postgres_db_url: URL, sysdb_name: str) -> None:
                 AND pid <> pg_backend_pid()
             """
                 ),
-                db_name = sysdb_name,
+                parameters={"db_name": sysdb_name},
             )
 
             # Drop the database
